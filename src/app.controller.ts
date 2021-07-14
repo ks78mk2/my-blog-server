@@ -14,4 +14,11 @@ export class AppController {
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
+
+  @Public()
+  @Get('')
+  async hello() {
+    return 'hello!!'
+  }
+
 }

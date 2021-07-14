@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 9090
 
 # CMD ["pm2-docker", "test.js"]
 CMD ["npm", "start"]
