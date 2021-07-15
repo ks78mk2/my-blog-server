@@ -13,20 +13,19 @@ export default class CatchException implements ExceptionFilter {
 
     let httpError = null;
 
-    if (exception instanceof HttpException) {
+    if (exception instanceof HttpException) {      
       // status: XXX, message: 'XXX' 형식의 에러인지 판단합니다.
       httpError = {
         status: exception.getStatus(), // throw new HttpError()로 던진 첫번째 매개변수 status 값
         message: exception.message, // throw new HttpError()로 던진 두번째 매개변수 message 값
-        code: exception.code // throw new HttpError()로 던진 세번째 매개변수 message 값
-      };
-    } 
-    
-    else {
+        code: exception.code ? exception.code : "9999" // throw new HttpError()로 던진 세번째 매개변수 message 값
+      };      
+    } else {
       // XXXX() is not a function와 같은 서버 자체에서의 오류일때, 서버 오류로 처리합니다.
       httpError = {
         status: 500,
         message: '서버 오류입니다.',
+        code : "9999"
       };
     }
 
