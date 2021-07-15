@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_FILTER, APP_GUARD  } from '@nestjs/core';
-import CatchException from 'src/exception/CatchException';
+import CatchException from 'src/exception/catchException';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Module({

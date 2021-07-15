@@ -1,7 +1,7 @@
 import { Injectable, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
-import HttpError from 'src/exception/HttpError';
+import HttpError from 'src/exception/httpError';
 import { TokenExpiredError, JsonWebTokenError, NotBeforeError } from 'jsonwebtoken'
 import { IS_PUBLIC_KEY } from 'src/auth/guards/skip-auth.decorator';
 
@@ -10,7 +10,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor(private reflector: Reflector){
     super();
   }
-  canActivate(context: ExecutionContext) {
+  canActivate(context: ExecutionContext) { //public api는 허용 (token check 안함)
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
