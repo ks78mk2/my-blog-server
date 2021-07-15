@@ -4,8 +4,8 @@ import { AppService } from './app.service';
 import { UserModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_FILTER, APP_GUARD  } from '@nestjs/core';
-import CatchException from 'src/exception/catchException';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import CatchException from 'src/commons/exception/catchException';
+import { JwtAuthGuard } from './commons/guards/jwt-auth.guard';
 import { ConfigModule } from '@nestjs/config';
 const Joi = require('@hapi/joi');
 

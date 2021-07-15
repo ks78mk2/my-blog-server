@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import HttpError from 'src/exception/httpError';
+import HttpError from 'src/commons/exception/httpError';
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {
