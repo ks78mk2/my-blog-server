@@ -16,7 +16,7 @@ export class AppController {
   }
 
   @Public()
-  @Get('')
+  @Get('/')
   async hello() {
     return 'hello!!'
   }

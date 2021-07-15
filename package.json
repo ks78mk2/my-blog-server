@@ -8,11 +8,13 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "env-cmd -f .env.prod nest start",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",    
+    "start": "nest build && env-cmd -f .env.prod pm2 start ./dist/main.js",
+    "restart": "nest build && env-cmd -f .env.prod pm2 restart ./dist/main.js",
     "start:dev": "env-cmd -f .env.dev nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "stop" : "pm2 stop 0 && pm2 delete 0",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -32,6 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pm2": "^5.1.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6"
