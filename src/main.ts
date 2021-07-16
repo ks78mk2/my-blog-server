@@ -4,7 +4,7 @@ import { _ValidationPipe } from './commons/exception/validationPipeError';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('v1');
+  app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new _ValidationPipe({
     whitelist : true,
     forbidNonWhitelisted : true,
