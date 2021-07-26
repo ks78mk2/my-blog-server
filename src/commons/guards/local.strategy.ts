@@ -13,7 +13,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(id: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(id, password);
     if (!user) {
-      throw new HttpError(401 , '존재하지 않는 사용자', '0001');
+      throw new HttpError(401 , '아이디 또는 비밀번호가 일치하지 않습니다.', '0001');
     }
     return user;
   }

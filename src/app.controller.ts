@@ -10,9 +10,13 @@ export class AppController {
 
   @Public()
   @UseGuards(LocalAuthGuard)
-  @Post('/login')
-  async login(@Body() userinfo : LoginDto) {
-    return this.authService.login(userinfo);
+  @Post('/signin')
+  async signIn(@Body() userinfo : LoginDto) {
+    try {
+      return this.authService.signIn(userinfo);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   @Public()

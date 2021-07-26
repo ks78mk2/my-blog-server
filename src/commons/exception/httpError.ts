@@ -7,7 +7,7 @@ export default class HttpError extends HttpException {
   public code: string = '0000';
 
   constructor(status: number, message: string, code : string | undefined) {
-    super(message, status);
+    super('Forbidden', status);
     this.statusCode = status;
     this.message = message;
     this.code = code? code : '0000';

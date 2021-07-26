@@ -1,7 +1,21 @@
-import { HttpException } from "@nestjs/common";
 import { IsNumber,  IsString } from "class-validator";
 
-export class HttpErrorDto extends HttpException{
+export class HttpErrorDto{
+    @IsNumber()    
+    readonly statusCode: number;
+
     @IsString()
-    readonly code: string[];
+    readonly message: string;
+
+    @IsString()
+    readonly code: string;
+
+    @IsString()
+    readonly timestamp: string;
+
+    @IsString()
+    readonly path: string;
+
+    @IsString()
+    readonly method: string;
 }
