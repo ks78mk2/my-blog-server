@@ -4,7 +4,6 @@ import { UserModule } from 'src/users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from '../commons/guards/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
 import { JwtStrategy } from '../commons/guards/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 

@@ -7,12 +7,13 @@ import { APP_FILTER, APP_GUARD  } from '@nestjs/core';
 import CatchException from 'src/commons/exception/catchException';
 import { JwtAuthGuard } from './commons/guards/jwt-auth.guard';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+// import { DatabaseModule } from './database/database.module';
 const Joi = require('@hapi/joi');
 
 @Module({
   imports: [
-    UserModule, 
-    AuthModule, 
+    TypeOrmModule.forRoot(),
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         JWT_ACCESS_TOKEN_SECRET :Joi.string().required(),
@@ -21,6 +22,8 @@ const Joi = require('@hapi/joi');
         JWT_REFRESH_TOKEN_EXPIRATION_TIME :Joi.string().required(),
       }),
     }),
+    UserModule, 
+    AuthModule,     
   ],
   controllers: [AppController],
   providers: [
