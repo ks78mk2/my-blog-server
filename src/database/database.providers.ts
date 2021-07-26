@@ -9,8 +9,8 @@ export const databaseProviders = [
       type: 'mysql',
       host: configService.get('MYSQL_HOST'),
       port: 3306,
-      username: 'root',
-      password: 'root',
+      username: 'user',
+      password: 'user',
       database: 'myBlog',
       entities: [
           __dirname + '/../**/*.entity{.ts,.js}',
