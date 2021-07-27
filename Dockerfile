@@ -1,8 +1,8 @@
 FROM node:14-alpine
 
-RUN mkdir -p /server
-WORKDIR /server
-ADD . /server
+RUN mkdir -p /app
+WORKDIR /app
+ADD . /app
 RUN npm install
 EXPOSE 9090
 

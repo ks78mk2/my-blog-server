@@ -8,7 +8,6 @@ import CatchException from 'src/commons/exception/catchException';
 import { JwtAuthGuard } from './commons/guards/jwt-auth.guard';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// import { DatabaseModule } from './database/database.module';
 const Joi = require('@hapi/joi');
 
 @Module({
@@ -20,6 +19,8 @@ const Joi = require('@hapi/joi');
         JWT_ACCESS_TOKEN_EXPIRATION_TIME :Joi.string().required(),
         JWT_REFRESH_TOKEN_SECRET :Joi.string().required(),
         JWT_REFRESH_TOKEN_EXPIRATION_TIME :Joi.string().required(),
+        MYSQL_HOST :Joi.string().required(),
+        COOKIE_DOMAIN :Joi.string().required(),
       }),
     }),
     UserModule, 

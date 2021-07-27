@@ -9,34 +9,23 @@ import { UserService } from './users.service';
 export class UserController {
   constructor(private readonly userService :UserService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get('/:id')
-  getFindOne(@Param() id: string) {
-    try {
-      return this.userService.findOne(id);
-    } catch (error : any) {
-      console.log(error);
-    }    
+  async getFindOne(@Param('id') id: string) {
+    const result = await this.userService.findOne(id);        
+    return {result}
   }
 
   // @UseGuards(JwtAuthGuard)
   @Public()
   @Post()
-  create(@Body() userData: CreateDto) {
-    try {
-      return this.userService.create(userData);
-    } catch (error : any) {
-      console.log(error);
-    }
+  async create(@Body() userData: CreateDto) {
+    const result = await this.userService.create(userData);
+    return {result}
   }
 
-  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
-  delete(@Param() id: string) {
-    try {
-      return this.userService.delete(id);
-    } catch (error : any) {
-      console.log(error);
-    }
+  async delete(@Param() id: string) {
+    const result = await this.userService.delete(id);
+    return {result}
   }
 }

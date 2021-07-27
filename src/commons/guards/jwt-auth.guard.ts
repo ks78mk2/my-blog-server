@@ -22,7 +22,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
 
   handleRequest(err, user, info: Error) {
-    
     if (info instanceof TokenExpiredError) {
       throw new HttpError(401, "토큰이 만료 되었습니다.", "0001")    
     } else if (info instanceof JsonWebTokenError) {

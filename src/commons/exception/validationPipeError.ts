@@ -6,9 +6,9 @@ export class _ValidationPipe extends ValidationPipe {
       try {
         return await super.transform(value, metadata)
       } catch (e) {
-          console.log(e)
+          const message = e.response.message[0];
         if (e instanceof BadRequestException) {
-          throw new HttpError(401 , "Parameter Validation Error", "0003")
+          throw new HttpError(401 , `${message ? message : 'Parameter Validation Error!'}`, "0003")
         }
       }
     }
