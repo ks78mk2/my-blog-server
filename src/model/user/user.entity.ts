@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryColumn} from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -12,5 +13,6 @@ export class User {
   auth_level: number;
 
   @Column({ nullable :true})
-  refresh_token: string;
+  @Exclude()
+  refresh_token?: string;
 }

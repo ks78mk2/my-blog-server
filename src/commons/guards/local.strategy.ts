@@ -5,7 +5,7 @@ import { AuthService } from '../../auth/auth.service';
 import HttpError from 'src/commons/exception/httpError'
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
   constructor(private authService: AuthService) {
     super({usernameField : 'id', passwordField : "password"});
   }

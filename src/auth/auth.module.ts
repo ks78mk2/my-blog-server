@@ -6,6 +6,9 @@ import { LocalStrategy } from '../commons/guards/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../commons/guards/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtRefreshStrategy } from 'src/commons/guards/jwt-refresh.strategy';
+import { UserService } from 'src/users/users.service';
+import { AuthController } from './auth.controller';
 
 
 @Module({
@@ -23,7 +26,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, ConfigService],
+  providers: [
+    AuthService, 
+    LocalStrategy, 
+    JwtStrategy, 
+    ConfigService, 
+    JwtRefreshStrategy
+  ],
   exports: [AuthService, JwtModule],
+  controllers: [AuthController],
 })
 export class AuthModule {}
