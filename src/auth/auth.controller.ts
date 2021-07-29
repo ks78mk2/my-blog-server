@@ -17,14 +17,15 @@ export class AuthController {
       @Public()
       @UseGuards(LocalAuthGuard)
       @Post('/signin')
-      async signIn(@Body() userinfo : LoginDto, @Res({ passthrough: true }) res: Response) {
+      async signIn(@Req() req, @Body() userinfo : LoginDto, @Res({ passthrough: true }) res: Response) {
+        console.log(req.user)
         const {accessToken, ...accessOption} = await this.authService.getCookieAccessToken(userinfo);
         const {refreshToken, ...refreshOption} = await this.authService.getCookieRefreshToken(userinfo);
         await this.userService.update_refreshToken(refreshToken, userinfo.id);
     
         res.cookie('Authentication', accessToken, accessOption);
         res.cookie('Refresh', refreshToken, refreshOption);
-        return {result : `${userinfo.id} signIn`};
+        return {result : { id : userinfo.id, }};
       }
     
       @Public()

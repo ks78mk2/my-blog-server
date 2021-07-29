@@ -8,7 +8,7 @@ export class _ValidationPipe extends ValidationPipe {
       } catch (e) {
           const message = e.response.message[0];
         if (e instanceof BadRequestException) {
-          throw new HttpError(401 , `${message ? message : 'Parameter Validation Error!'}`, "0003")
+          throw new HttpError(400 , `${message ? message : 'Parameter Validation Error!'}`, "0003")
         }
       }
     }

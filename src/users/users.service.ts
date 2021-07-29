@@ -31,7 +31,7 @@ export class UserService {
       return result;
     } catch (error) {
       if (error?.code === "ER_DUP_ENTRY") {
-        throw new HttpError(401, "아이디가 중복되었습니다.", "0001")
+        throw new HttpError(400, "아이디가 중복되었습니다.", "0001")
       }
     }    
   }
