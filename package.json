@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "start": "nest build && env-cmd -f .env.prod pm2-runtime start ./ecosystem.config.js",
+    "start": "env-cmd -f .env.prod pm2-runtime start ./ecosystem.config.js",
     "start:dev": "env-cmd -f .env.dev nest start --watch"
   },
   "dependencies": {
