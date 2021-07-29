@@ -7,4 +7,4 @@ RUN npm run build
 EXPOSE 9090
 
 # CMD ["pm2-docker", "test.js"]
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
