@@ -4,7 +4,7 @@ RUN mkdir -p /app
 RUN mkdir -p /app/node_modules
 WORKDIR /app
 ADD . /app
-RUN npm build
+RUN npm run build
 EXPOSE 9090
 
 # CMD ["pm2-docker", "test.js"]
