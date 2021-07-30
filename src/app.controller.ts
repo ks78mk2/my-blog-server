@@ -6,7 +6,7 @@ export class AppController {
   @Public()
   @Get('/')
   async hello() {
-    return {result :'hello!!!!z'}
+    return {result :'hello!!!!za'}
   }
 
 }
