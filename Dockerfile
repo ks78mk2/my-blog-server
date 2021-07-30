@@ -4,7 +4,6 @@ RUN mkdir -p /app
 RUN mkdir -p /app/node_modules
 WORKDIR /app
 ADD . /app
-RUN npm install
 EXPOSE 9090
 
 # CMD ["pm2-docker", "test.js"]
