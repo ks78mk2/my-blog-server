@@ -6,7 +6,6 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf dist",
     "build": "nest build",
     "start": "env-cmd -f .env.prod pm2-runtime start ./ecosystem.config.js",
     "start:dev": "env-cmd -f .env.dev nest start --watch"
