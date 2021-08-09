@@ -1,10 +1,10 @@
 FROM node:14-alpine
 
 RUN mkdir -p /app
+RUN mkdir -p /app/node_modules
 WORKDIR /app
+# RUN npm install
 COPY . /app
-
-RUN npm install
 # RUN npm run build
 EXPOSE 9090
 
