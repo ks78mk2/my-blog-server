@@ -6,6 +6,7 @@ STATIC_PATH=/home/opc/my-blog-server-static/
 if [ ! -d "$BASIC_PATH" ]; then
         echo "THIS BASIC PATH NOT EXIST"
         mkdir -p $BASIC_PATH
+        cd $BASIC_PATH
         /home/opc/.nvm/versions/node/v10.15.3/bin/npm install &
         wait
         cp -r ./node_modules $STATIC_PATH &
@@ -19,6 +20,7 @@ else
         else
                 echo "not same"
                 /home/opc/.nvm/versions/node/v10.15.3/bin/npm install &
+                cd $BASIC_PATH
                 wait
                 cp -r ./node_modules $STATIC_PATH &
                 wait
