@@ -9,5 +9,4 @@ COPY . /app
 EXPOSE 9090
 
 # CMD ["pm2-docker", "test.js"]
-# CMD ["npm", "start"]
-RUN nest start
+CMD ["npm", "start"]
