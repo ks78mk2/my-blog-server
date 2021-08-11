@@ -62,7 +62,7 @@ export class AuthService {
     } 
   }
 
-  async signOut() {
+  async logout() {
     return {
       token : '',
       domain: this.configService.get('COOKIE_DOMAIN'),

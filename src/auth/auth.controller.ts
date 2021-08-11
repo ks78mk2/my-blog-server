@@ -16,8 +16,8 @@ export class AuthController {
     
       @Public()
       @UseGuards(LocalAuthGuard)
-      @Post('/signin')
-      async signIn(@Req() req, @Body() userinfo : LoginDto, @Res({ passthrough: true }) res: Response) {
+      @Post('/login')
+      async login(@Req() req, @Body() userinfo : LoginDto, @Res({ passthrough: true }) res: Response) {
         console.log(req.user)
         const {accessToken, ...accessOption} = await this.authService.getCookieAccessToken(userinfo);
         const {refreshToken, ...refreshOption} = await this.authService.getCookieRefreshToken(userinfo);
@@ -30,14 +30,14 @@ export class AuthController {
     
       @Public()
       @UseGuards(JwtRefreshGuard)
-      @Post('/signout')
-      async logOut(@Req() req, @Res({ passthrough: true }) res: Response) {
-        const {token, ...option} = await this.authService.signOut();
+      @Post('/logout')
+      async logout(@Req() req, @Res({ passthrough: true }) res: Response) {
+        const {token, ...option} = await this.authService.logout();
         await this.userService.deleteRefreshToken(req.user.id);
     
         res.cookie('Authentication', token, option);
         res.cookie('Refresh', token, option);
-        return {result : `signOut`};
+        return {result : `logout`};
       }
     
       @Public()
