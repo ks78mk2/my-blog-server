@@ -6,12 +6,12 @@ export declare class AuthController {
     private authService;
     private readonly userService;
     constructor(authService: AuthService, userService: UserService);
-    signIn(req: any, userinfo: LoginDto, res: Response): Promise<{
+    login(req: any, userinfo: LoginDto, res: Response): Promise<{
         result: {
             id: string;
         };
     }>;
-    logOut(req: any, res: Response): Promise<{
+    logout(req: any, res: Response): Promise<{
         result: string;
     }>;
     refresh(req: any, res: Response): Promise<{
