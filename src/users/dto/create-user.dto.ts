@@ -9,6 +9,10 @@ export class CreateDto {
     @Length(8, 20)
     readonly password: string;
 
+    @IsString()
+    @Length(2, 10)
+    readonly name: string;
+
     @IsOptional()
     readonly auth_level: number;
 }

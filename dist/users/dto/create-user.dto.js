@@ -24,6 +24,11 @@ __decorate([
     __metadata("design:type", String)
 ], CreateDto.prototype, "password", void 0);
 __decorate([
+    class_validator_1.IsString(),
+    class_validator_1.Length(2, 10),
+    __metadata("design:type", String)
+], CreateDto.prototype, "name", void 0);
+__decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", Number)
 ], CreateDto.prototype, "auth_level", void 0);

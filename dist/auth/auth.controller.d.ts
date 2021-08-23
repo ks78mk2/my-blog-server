@@ -8,7 +8,9 @@ export declare class AuthController {
     constructor(authService: AuthService, userService: UserService);
     login(req: any, userinfo: LoginDto, res: Response): Promise<{
         result: {
-            id: string;
+            id: any;
+            name: any;
+            auth_level: any;
         };
     }>;
     logout(req: any, res: Response): Promise<{

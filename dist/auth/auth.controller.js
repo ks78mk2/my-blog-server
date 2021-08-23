@@ -38,12 +38,12 @@ let AuthController = class AuthController {
     }
     async login(req, userinfo, res) {
         console.log(req.user);
-        const _a = await this.authService.getCookieAccessToken(userinfo), { accessToken } = _a, accessOption = __rest(_a, ["accessToken"]);
-        const _b = await this.authService.getCookieRefreshToken(userinfo), { refreshToken } = _b, refreshOption = __rest(_b, ["refreshToken"]);
+        const _a = await this.authService.getCookieAccessToken(req.user), { accessToken } = _a, accessOption = __rest(_a, ["accessToken"]);
+        const _b = await this.authService.getCookieRefreshToken(req.user), { refreshToken } = _b, refreshOption = __rest(_b, ["refreshToken"]);
         await this.userService.update_refreshToken(refreshToken, userinfo.id);
         res.cookie('Authentication', accessToken, accessOption);
         res.cookie('Refresh', refreshToken, refreshOption);
-        return { result: { id: userinfo.id, } };
+        return { result: { id: req.user.id, name: req.user.name, auth_level: req.user.auth_level } };
     }
     async logout(req, res) {
         const _a = await this.authService.logout(), { token } = _a, option = __rest(_a, ["token"]);

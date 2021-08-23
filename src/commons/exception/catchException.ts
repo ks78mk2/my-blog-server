@@ -17,7 +17,6 @@ export default class CatchException implements ExceptionFilter {
     let code = '9999';
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
-
     console.log((exception as any));
     switch (exception.constructor) {
       case HttpException:          
