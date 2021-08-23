@@ -34,6 +34,7 @@ let UserService = class UserService {
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(userData.password, salt);
             user.auth_level = userData.auth_level;
+            user.name = userData.name;
             const result = await this.userRepository.insert(user);
             return result;
         }

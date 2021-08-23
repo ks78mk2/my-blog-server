@@ -33,6 +33,9 @@ let AuthService = class AuthService {
         this.configService = configService;
     }
     async validateUser(id, password) {
+        if (id == "guest") {
+            return { id: "guest", name: "게스트", auth_level: "3" };
+        }
         const user = await this.usersService.findOne(id);
         if (user) {
             const isMatch = await bcrypt.compare(password, user.password);

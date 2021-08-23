@@ -32,7 +32,6 @@ let JwtRefreshStrategy = class JwtRefreshStrategy extends passport_1.PassportStr
     }
     async validate(req, payload) {
         var _a;
-        console.log(payload);
         const refreshToken = (_a = req.cookies) === null || _a === void 0 ? void 0 : _a.Refresh;
         return this.userService.getUserIfRefreshTokenMatches(refreshToken, payload.id);
     }
