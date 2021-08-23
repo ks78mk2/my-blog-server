@@ -19,7 +19,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("../users/users.service");
@@ -33,11 +33,14 @@ let AuthService = class AuthService {
         this.configService = configService;
     }
     async validateUser(id, password) {
+        if (id == "guest") {
+            return {id: "guest", name: "게스트", auth_level: "3"};
+        }
         const user = await this.usersService.findOne(id);
         if (user) {
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
-                const { password } = user, result = __rest(user, ["password"]);
+                const {password} = user, result = __rest(user, ["password"]);
                 return result;
             }
             else {
@@ -47,7 +50,8 @@ let AuthService = class AuthService {
         return null;
     }
     async getCookieAccessToken(user) {
-        const payload = { id: user.id, auth: user.auth_level };
+        const payload = {id: user.id, auth_level: user.auth_level, name: user.name};
+        console.log(payload)
         const token = await this.jwtService.sign(payload, {
             secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
             expiresIn: `${this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME')}s`
@@ -61,7 +65,7 @@ let AuthService = class AuthService {
         };
     }
     async getCookieRefreshToken(user) {
-        const payload = { id: user.id, auth: user.auth_level };
+        const payload = {id: user.id, auth_level: user.auth_level, name: user.name};
         const token = await this.jwtService.sign(payload, {
             secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
             expiresIn: `${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}s`
@@ -74,7 +78,7 @@ let AuthService = class AuthService {
             maxAge: Number(this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')) * 1000,
         };
     }
-    async signOut() {
+    async logout() {
         return {
             token: '',
             domain: this.configService.get('COOKIE_DOMAIN'),
@@ -87,8 +91,8 @@ let AuthService = class AuthService {
 AuthService = __decorate([
     common_1.Injectable(),
     __metadata("design:paramtypes", [users_service_1.UserService,
-        jwt_1.JwtService,
-        config_1.ConfigService])
+    jwt_1.JwtService,
+    config_1.ConfigService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

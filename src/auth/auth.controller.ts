@@ -19,13 +19,13 @@ export class AuthController {
       @Post('/login')
       async login(@Req() req, @Body() userinfo : LoginDto, @Res({ passthrough: true }) res: Response) {
         console.log(req.user)
-        const {accessToken, ...accessOption} = await this.authService.getCookieAccessToken(userinfo);
-        const {refreshToken, ...refreshOption} = await this.authService.getCookieRefreshToken(userinfo);
+        const {accessToken, ...accessOption} = await this.authService.getCookieAccessToken(req.user);
+        const {refreshToken, ...refreshOption} = await this.authService.getCookieRefreshToken(req.user);
         await this.userService.update_refreshToken(refreshToken, userinfo.id);
     
         res.cookie('Authentication', accessToken, accessOption);
         res.cookie('Refresh', refreshToken, refreshOption);
-        return {result : { id : userinfo.id, }};
+        return {result : { id : req.user.id, name: req.user.name, auth_level: req.user.auth_level }};
       }
     
       @Public()

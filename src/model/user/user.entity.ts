@@ -9,6 +9,9 @@ export class User {
   @Column({ length: 200, nullable: false })
   password: string;
 
+  @Column({ length: 10, nullable: false })
+  name: string;
+
   @Column({ nullable: false, default: 2})
   auth_level: number;
 
