@@ -74,7 +74,7 @@ let AuthService = class AuthService {
             maxAge: Number(this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')) * 1000,
         };
     }
-    async signOut() {
+    async logout() {
         return {
             token: '',
             domain: this.configService.get('COOKIE_DOMAIN'),

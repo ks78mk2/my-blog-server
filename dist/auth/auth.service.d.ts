@@ -21,7 +21,7 @@ export declare class AuthService {
         httpOnly: boolean;
         maxAge: number;
     }>;
-    signOut(): Promise<{
+    logout(): Promise<{
         token: string;
         domain: any;
         path: string;
