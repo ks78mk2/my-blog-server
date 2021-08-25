@@ -6,7 +6,7 @@ import { _ValidationPipe } from './commons/exception/validationPipeError';
 import { TransformInterceptor } from './commons/util/response.util';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule,  { cors: true });
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.use(cookieParser());
   app.useGlobalInterceptors(new TransformInterceptor());
   app.setGlobalPrefix('api/v1');

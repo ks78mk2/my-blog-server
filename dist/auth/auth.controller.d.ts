@@ -13,7 +13,17 @@ export declare class AuthController {
             auth_level: any;
         };
     }>;
+    guestLogin(res: Response): Promise<{
+        result: {
+            id: string;
+            name: string;
+            auth_level: number;
+        };
+    }>;
     logout(req: any, res: Response): Promise<{
+        result: string;
+    }>;
+    guestLogout(res: Response): Promise<{
         result: string;
     }>;
     refresh(req: any, res: Response): Promise<{
