@@ -37,7 +37,6 @@ let AuthController = class AuthController {
         this.userService = userService;
     }
     async login(req, userinfo, res) {
-        console.log(req.user);
         const _a = await this.authService.getCookieAccessToken(req.user), { accessToken } = _a, accessOption = __rest(_a, ["accessToken"]);
         const _b = await this.authService.getCookieRefreshToken(req.user), { refreshToken } = _b, refreshOption = __rest(_b, ["refreshToken"]);
         await this.userService.update_refreshToken(refreshToken, userinfo.id);
@@ -45,9 +44,27 @@ let AuthController = class AuthController {
         res.cookie('Refresh', refreshToken, refreshOption);
         return { result: { id: req.user.id, name: req.user.name, auth_level: req.user.auth_level } };
     }
+    async guestLogin(res) {
+        const user = {
+            id: "guest",
+            name: "게스트",
+            auth_level: 3
+        };
+        const _a = await this.authService.getCookieAccessToken(user), { accessToken } = _a, accessOption = __rest(_a, ["accessToken"]);
+        const _b = await this.authService.getCookieRefreshToken(user), { refreshToken } = _b, refreshOption = __rest(_b, ["refreshToken"]);
+        res.cookie('Authentication', accessToken, accessOption);
+        res.cookie('Refresh', refreshToken, refreshOption);
+        return { result: { id: user.id, name: user.name, auth_level: user.auth_level } };
+    }
     async logout(req, res) {
         const _a = await this.authService.logout(), { token } = _a, option = __rest(_a, ["token"]);
         await this.userService.deleteRefreshToken(req.user.id);
+        res.cookie('Authentication', token, option);
+        res.cookie('Refresh', token, option);
+        return { result: `logout` };
+    }
+    async guestLogout(res) {
+        const _a = await this.authService.logout(), { token } = _a, option = __rest(_a, ["token"]);
         res.cookie('Authentication', token, option);
         res.cookie('Refresh', token, option);
         return { result: `logout` };
@@ -72,6 +89,14 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     skip_auth_decorator_1.Public(),
+    common_1.Post('/login/guest'),
+    __param(0, common_1.Res({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "guestLogin", null);
+__decorate([
+    skip_auth_decorator_1.Public(),
     common_1.UseGuards(jwt_refresh_guard_1.JwtRefreshGuard),
     common_1.Post('/logout'),
     __param(0, common_1.Req()),
@@ -80,6 +105,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "logout", null);
+__decorate([
+    skip_auth_decorator_1.Public(),
+    common_1.Post('/logout/guest'),
+    __param(0, common_1.Res({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "guestLogout", null);
 __decorate([
     skip_auth_decorator_1.Public(),
     common_1.UseGuards(jwt_refresh_guard_1.JwtRefreshGuard),

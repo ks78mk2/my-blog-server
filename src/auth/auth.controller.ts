@@ -18,14 +18,29 @@ export class AuthController {
       @UseGuards(LocalAuthGuard)
       @Post('/login')
       async login(@Req() req, @Body() userinfo : LoginDto, @Res({ passthrough: true }) res: Response) {
-        console.log(req.user)
         const {accessToken, ...accessOption} = await this.authService.getCookieAccessToken(req.user);
         const {refreshToken, ...refreshOption} = await this.authService.getCookieRefreshToken(req.user);
         await this.userService.update_refreshToken(refreshToken, userinfo.id);
-    
+        
         res.cookie('Authentication', accessToken, accessOption);
         res.cookie('Refresh', refreshToken, refreshOption);
         return {result : { id : req.user.id, name: req.user.name, auth_level: req.user.auth_level }};
+      }
+
+      @Public()
+      @Post('/login/guest')
+      async guestLogin(@Res({ passthrough: true }) res: Response) {
+        const user = {
+          id : "guest",
+          name : "게스트",
+          auth_level: 3
+        }
+        const {accessToken, ...accessOption} = await this.authService.getCookieAccessToken(user);
+        const {refreshToken, ...refreshOption} = await this.authService.getCookieRefreshToken(user);        
+        
+        res.cookie('Authentication', accessToken, accessOption);
+        res.cookie('Refresh', refreshToken, refreshOption);
+        return {result : { id : user.id, name: user.name, auth_level: user.auth_level }};
       }
     
       @Public()
@@ -33,8 +48,17 @@ export class AuthController {
       @Post('/logout')
       async logout(@Req() req, @Res({ passthrough: true }) res: Response) {
         const {token, ...option} = await this.authService.logout();
-        await this.userService.deleteRefreshToken(req.user.id);
+        await this.userService.deleteRefreshToken(req.user.id);        
     
+        res.cookie('Authentication', token, option);
+        res.cookie('Refresh', token, option);
+        return {result : `logout`};
+      }
+
+      @Public()
+      @Post('/logout/guest')
+      async guestLogout(@Res({ passthrough: true }) res: Response) {
+        const {token, ...option} = await this.authService.logout();
         res.cookie('Authentication', token, option);
         res.cookie('Refresh', token, option);
         return {result : `logout`};

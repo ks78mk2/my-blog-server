@@ -33,6 +33,9 @@ let JwtRefreshStrategy = class JwtRefreshStrategy extends passport_1.PassportStr
     async validate(req, payload) {
         var _a;
         const refreshToken = (_a = req.cookies) === null || _a === void 0 ? void 0 : _a.Refresh;
+        if (payload.id == 'guest') {
+            return { id: payload.id };
+        }
         return this.userService.getUserIfRefreshTokenMatches(refreshToken, payload.id);
     }
 };
