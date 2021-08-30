@@ -7,15 +7,6 @@ import { _ValidationPipe } from './commons/exception/validationPipeError';
 import { TransformInterceptor } from './commons/util/response.util';
 
 async function bootstrap() {
-  // let httpsOptions = {};
-  // if(process.env.SSL == 'true'){ 
-  //   httpsOptions= {
-  //     key: fs.readFileSync('/etc/ssl/cert/privkey1.pem'),
-  //     cert: fs.readFileSync('/etc/ssl/cert/fullchain1.pem'),
-  //   };
-  // }  
-
-  // const app = await NestFactory.create(AppModule, { ...httpsOptions, cors: true });
   const app = await NestFactory.create(AppModule, { cors: true });
   app.use(cookieParser());
   app.useGlobalInterceptors(new TransformInterceptor());
